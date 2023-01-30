@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from filterpy.kalman import KalmanFilter
 
 yolov4_weights = "YOLOv4_model/yolov4.weights"
 yolov4_cfg = "YOLOv4_model/yolov4.cfg"
@@ -14,8 +15,9 @@ def convert_bbox_to_z(bbox):
     y = bbox[1] + h/2
     s = w * h # scale is just area
     r = w/float(h)
-
-    return np.array([x, y, s, r]).rehape((4, 1))
+    
+    # return [x, y, s, r]
+    return np.array([x, y, s, r]).reshape((4, 1))
 
 
 def convert_x_to_bbox(x, score=None):
@@ -96,6 +98,15 @@ class objectDetector():
 
         return img, bboxes
 
+class KalmanBoxTracker():
+
+    def __init__(self, bbox):
+        # initilize a tracker using initial bounding box
+         
+        # define constant velocity model
+        pass    
+
+    
 
 class SORT():
 
@@ -104,6 +115,6 @@ class SORT():
             
     def obj_detector(self, img, draw=False):
         detect = objectDetector()
-        img, bbox = detect.object_detect(img)
+        img, bboxes = detect.object_detect(img)
 
-        return img, bbox
+        return img, bboxes
