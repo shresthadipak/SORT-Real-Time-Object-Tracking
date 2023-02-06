@@ -6,7 +6,7 @@ class KalmanFilter:
     def __init__(self, dim_x, dim_z):
         self.dim_x = dim_x
         self.dim_z = dim_z
-        self.x = zeros((dim_x), 1)
+        self.x = zeros((dim_x, 1))
         self.P = eye(dim_x)
         self.Q = eye(dim_x)
         self.F = eye(dim_x)
